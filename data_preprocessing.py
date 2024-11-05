@@ -6,7 +6,7 @@
 # Dulce Funez Chinchilla, Drashti Mehta, Erika Dickson
 # 
 
-# In[2]:
+# In[61]:
 
 
 #Import statements
@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from scipy import stats
 
 
-# In[3]:
+# In[62]:
 
 
 dreams = pd.read_csv('dreams_dataset.csv')
@@ -30,7 +30,7 @@ print(dreams.shape)
 dreams.head(10)
 
 
-# In[4]:
+# In[63]:
 
 
 #Add an additional column 'gender' for the gender of the dreamer, place it in index 2, intialize with 'n/a'
@@ -38,81 +38,83 @@ dreams.head(10)
 dreams.insert(2, 'gender', 'n/a')
 
 
-# In[5]:
+# In[64]:
 
 
-#Update the gender column to have dreamer gender
+#Update the gender column to have dreamer gender as numeric binary
+#Female: 1
+#Male: 0
 dreamer_gender = {
-    'alta' : 'F',
-    'angie' : 'F',
-    'arlie' : 'F',
-    'b' : 'F',
-    'b2' : 'F',
-    'bay_area_girls_456' : 'F',
-    'bay_area_girls_789' : 'F',
-    'bea1' : 'F',
-    'bea2' : 'F',
-    'blind-f' : 'F',
-    'blind-m' : 'M',
-    'bosnak' : 'M',
-    'chris' : 'M',
-    'chuck' : 'M',
-    'dahlia' : 'F',
-    'david' : 'M',
-    'dorothea' : 'F',
-    'ed' : 'M',
-    'edna' : 'F',
-    'elizabeth' : 'F',
-    'emma' : 'F',
-    'emmas_husband' : 'M',
-    'esther' : 'F',
-    'hall_female' : 'F',
-    'norms-f' : 'F',
-    'izzy' : 'F',
-    'jasmine1' : 'F',
-    'jasmine2' : 'F',
-    'jasmine3' : 'F',
-    'jasmine4' : 'F',
-    'jeff' : 'M',
-    'joan' : 'F',
-    'kenneth' : 'M',
-    'lawrence' : 'M',
-    'mack' : 'M',
-    'madeline1-hs' : 'F',
-    'madeline2-dorms' : 'F',
-    'madeline3-offcampus' : 'F',
-    'madeline4-postgrad' : 'F',
-    'mark' : 'M',
-    'melissa' : 'F',
-    'melora' : 'F',
-    'melvin' : 'M',
-    'merri' : 'F',
-    'miami-home' : 'M',
-    'miami-lab' : 'M',
-    'midwest_teens-f' : 'F',
-    'midwest_teens-m' : 'M',
-    'nancy' : 'F',
-    'natural_scientist' : 'M',
-    'norman' : 'M',
-    'wedding' : 'F',
-    'norms-m' : 'M',
-    'pegasus' : 'M',
-    'peru-f' : 'f',
-    'peru-m' : 'm',
-    'phil1' : 'm',
-    'phil2' : 'm',
-    'phil3' : 'm',
-    'physiologist' : 'M',
-    'ringo' : 'M',
-    'samantha' : 'F',
-    'seventh_graders' : 'F',
-    'toby' : 'M',
-    'tom' : 'M',
-    'ucsc_women' : 'F',
-    'vickie' : 'F',
-    'vietnam_vet' : 'M',
-    'vietnam_vet2' : 'M',
-    'west_coast_teens' : 'F',
+    'alta' : '1',
+    'angie' : '1',
+    'arlie' : '1',
+    'b' : '1',
+    'b2' : '1',
+    'bay_area_girls_456' : '1',
+    'bay_area_girls_789' : '1',
+    'bea1' : '1',
+    'bea2' : '1',
+    'blind-f' : '1',
+    'blind-m' : '0',
+    'bosnak' : '0',
+    'chris' : '0',
+    'chuck' : '0',
+    'dahlia' : '1',
+    'david' : '0',
+    'dorothea' : '1',
+    'ed' : '0',
+    'edna' : '1',
+    'elizabeth' : '1',
+    'emma' : '1',
+    'emmas_husband' : '0',
+    'esther' : '1',
+    'hall_female' : '1',
+    'norms-f' : '1',
+    'izzy' : '1',
+    'jasmine1' : '1',
+    'jasmine2' : '1',
+    'jasmine3' : '1',
+    'jasmine4' : '1',
+    'jeff' : '0',
+    'joan' : '1',
+    'kenneth' : '0',
+    'lawrence' : '0',
+    'mack' : '0',
+    'madeline1-hs' : '1',
+    'madeline2-dorms' : '1',
+    'madeline3-offcampus' : '1',
+    'madeline4-postgrad' : '1',
+    'mark' : '0',
+    'melissa' : '1',
+    'melora' : '1',
+    'melvin' : '0',
+    'merri' : '1',
+    'miami-home' : '0',
+    'miami-lab' : '0',
+    'midwest_teens-f' : '1',
+    'midwest_teens-m' : '0',
+    'nancy' : '1',
+    'natural_scientist' : '0',
+    'norman' : '0',
+    'wedding' : '1',
+    'norms-m' : '0',
+    'pegasus' : '0',
+    'peru-f' : '1',
+    'peru-m' : '0',
+    'phil1' : '0',
+    'phil2' : '0',
+    'phil3' : '0',
+    'physiologist' : '0',
+    'ringo' : '0',
+    'samantha' : '1',
+    'seventh_graders' : '1',
+    'toby' : '0',
+    'tom' : '0',
+    'ucsc_women' : '1',
+    'vickie' : '1',
+    'vietnam_vet' : '0',
+    'vietnam_vet2' : '0',
+    'west_coast_teens' : '1',
 }
 
 for key, val in dreamer_gender.items():
@@ -121,7 +123,7 @@ for key, val in dreamer_gender.items():
 dreams.head(5)
 
 
-# In[6]:
+# In[65]:
 
 
 #Split train & test set with 80:20 ratio 
@@ -139,20 +141,29 @@ y_test_raw = y_test.copy()
 
 # Proceed to data preprocessing on train set 
 
-# In[7]:
+# In[66]:
 
 
 #Handle missing values: find how many columns have missing values, and how many many missing values
 X_train.isna().sum()
 
 
-# In[8]:
+# In[67]:
 
 
 #Dimensionality reduction
 #Remove unnecessary columns from the train set
+X_train.drop(' dream_id', axis=1, inplace=True)
 X_train.drop('dream_language', axis=1, inplace=True)
 X_train.drop('dream_date', axis=1, inplace=True)
+X_train.drop('dreamer', axis=1, inplace=True)
+X_train.drop('gender', axis=1, inplace=True)
+X_train.drop('description', axis=1, inplace=True)
+X_train.drop('text_dream', axis=1, inplace=True)
+X_train.drop('Aggression/Friendliness', axis=1, inplace=True)
+X_train.drop('A/CIndex', axis=1, inplace=True)
+X_train.drop('F/CIndex', axis=1, inplace=True)
+X_train.drop('S/CIndex', axis=1, inplace=True)
 
 #Remove unnecessary columns with missing values 
 X_train.drop('characters_code', axis=1, inplace=True)
@@ -163,14 +174,14 @@ X_train.drop('sexuality_code', axis=1, inplace=True)
 X_train.head(10)
 
 
-# In[9]:
+# In[68]:
 
 
 #Checking none of the remaining columns have missing values
 X_train.isna().sum()
 
 
-# In[10]:
+# In[69]:
 
 
 #Checking for any duplicate rows
@@ -179,7 +190,7 @@ len(X_train) - len(X_train.drop_duplicates())
 
 # Discover & visualize the cleaned data to gain insights
 
-# In[11]:
+# In[70]:
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
@@ -197,7 +208,7 @@ print('Column "NegativeEmotions" minimum value:', y_train.min())
 print('Column "NegativeEmotions" maximum value:', y_train.max())
 
 
-# In[12]:
+# In[71]:
 
 
 plt.xlabel("Male")
@@ -206,7 +217,7 @@ plt.scatter(X_train['Male'], y_train, color = 'red')
 plt.show()
 
 
-# In[13]:
+# In[72]:
 
 
 plt.xlabel("Animal")
@@ -215,7 +226,7 @@ plt.scatter(X_train['Animal'], y_train, color = 'blue')
 plt.show()
 
 
-# In[14]:
+# In[73]:
 
 
 plt.xlabel("Friends")
@@ -224,7 +235,7 @@ plt.scatter(X_train['Friends'], y_train, color = 'green')
 plt.show()
 
 
-# In[15]:
+# In[74]:
 
 
 plt.xlabel("Family")
@@ -233,7 +244,7 @@ plt.scatter(X_train['Family'], y_train, color = 'yellow')
 plt.show()
 
 
-# In[16]:
+# In[75]:
 
 
 plt.xlabel("Dead&Imaginary")
@@ -242,7 +253,7 @@ plt.scatter(X_train['Dead&Imaginary'], y_train, color = 'purple')
 plt.show()
 
 
-# In[17]:
+# In[76]:
 
 
 plt.hist(X_train['Male'], bins=10, color='red', edgecolor='black')  
@@ -251,7 +262,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[18]:
+# In[77]:
 
 
 plt.hist(X_train['Animal'], bins=10, color='blue', edgecolor='black')  
@@ -260,7 +271,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[19]:
+# In[78]:
 
 
 plt.hist(X_train['Friends'], bins=10, color='green', edgecolor='black') 
@@ -269,7 +280,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[20]:
+# In[79]:
 
 
 plt.hist(X_train['Family'], bins=10, color='yellow', edgecolor='black') 
@@ -278,7 +289,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[21]:
+# In[80]:
 
 
 plt.hist(X_train['Dead&Imaginary'], bins=10, color='purple', edgecolor='black')  
@@ -289,7 +300,7 @@ plt.show()
 
 # Checking for correlations
 
-# In[22]:
+# In[81]:
 
 
 #correlation matrix
@@ -310,7 +321,7 @@ plt.show()
 
 # Exporting the processed training data frame to a csv file
 
-# In[23]:
+# In[82]:
 
 
 training_df = X_train.copy()
@@ -322,10 +333,15 @@ training_df.to_csv("training_data.csv")
 
 # Reflect changes on training set to test set
 
-# In[24]:
+# In[83]:
 
 
 #Drop columns from test set to match the training set
+X_test.drop(' dream_id', axis=1, inplace=True)
+X_test.drop('dreamer', axis=1, inplace=True)
+X_test.drop('gender', axis=1, inplace=True)
+X_test.drop('description', axis=1, inplace=True)
+X_test.drop('text_dream', axis=1, inplace=True)
 X_test.drop('dream_language', axis=1, inplace=True)
 X_test.drop('dream_date', axis=1, inplace=True)
 X_test.drop('characters_code', axis=1, inplace=True)
@@ -333,4 +349,9 @@ X_test.drop('emotions_code', axis=1, inplace=True)
 X_test.drop('aggression_code', axis=1, inplace=True)
 X_test.drop('friendliness_code', axis=1, inplace=True)
 X_test.drop('sexuality_code', axis=1, inplace=True)
+X_test.drop('Aggression/Friendliness', axis=1, inplace=True)
+X_test.drop('A/CIndex', axis=1, inplace=True)
+X_test.drop('F/CIndex', axis=1, inplace=True)
+X_test.drop('S/CIndex', axis=1, inplace=True)
+
 
