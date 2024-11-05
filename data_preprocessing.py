@@ -6,7 +6,7 @@
 # Dulce Funez Chinchilla, Drashti Mehta, Erika Dickson
 # 
 
-# In[61]:
+# In[86]:
 
 
 #Import statements
@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from scipy import stats
 
 
-# In[62]:
+# In[87]:
 
 
 dreams = pd.read_csv('dreams_dataset.csv')
@@ -30,7 +30,7 @@ print(dreams.shape)
 dreams.head(10)
 
 
-# In[63]:
+# In[88]:
 
 
 #Add an additional column 'gender' for the gender of the dreamer, place it in index 2, intialize with 'n/a'
@@ -38,7 +38,7 @@ dreams.head(10)
 dreams.insert(2, 'gender', 'n/a')
 
 
-# In[64]:
+# In[89]:
 
 
 #Update the gender column to have dreamer gender as numeric binary
@@ -123,7 +123,7 @@ for key, val in dreamer_gender.items():
 dreams.head(5)
 
 
-# In[65]:
+# In[90]:
 
 
 #Split train & test set with 80:20 ratio 
@@ -141,14 +141,14 @@ y_test_raw = y_test.copy()
 
 # Proceed to data preprocessing on train set 
 
-# In[66]:
+# In[91]:
 
 
 #Handle missing values: find how many columns have missing values, and how many many missing values
 X_train.isna().sum()
 
 
-# In[67]:
+# In[92]:
 
 
 #Dimensionality reduction
@@ -174,14 +174,14 @@ X_train.drop('sexuality_code', axis=1, inplace=True)
 X_train.head(10)
 
 
-# In[68]:
+# In[93]:
 
 
 #Checking none of the remaining columns have missing values
 X_train.isna().sum()
 
 
-# In[69]:
+# In[94]:
 
 
 #Checking for any duplicate rows
@@ -190,7 +190,7 @@ len(X_train) - len(X_train.drop_duplicates())
 
 # Discover & visualize the cleaned data to gain insights
 
-# In[70]:
+# In[95]:
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
@@ -208,7 +208,7 @@ print('Column "NegativeEmotions" minimum value:', y_train.min())
 print('Column "NegativeEmotions" maximum value:', y_train.max())
 
 
-# In[71]:
+# In[96]:
 
 
 plt.xlabel("Male")
@@ -217,7 +217,7 @@ plt.scatter(X_train['Male'], y_train, color = 'red')
 plt.show()
 
 
-# In[72]:
+# In[97]:
 
 
 plt.xlabel("Animal")
@@ -226,7 +226,7 @@ plt.scatter(X_train['Animal'], y_train, color = 'blue')
 plt.show()
 
 
-# In[73]:
+# In[98]:
 
 
 plt.xlabel("Friends")
@@ -235,7 +235,7 @@ plt.scatter(X_train['Friends'], y_train, color = 'green')
 plt.show()
 
 
-# In[74]:
+# In[99]:
 
 
 plt.xlabel("Family")
@@ -244,7 +244,7 @@ plt.scatter(X_train['Family'], y_train, color = 'yellow')
 plt.show()
 
 
-# In[75]:
+# In[100]:
 
 
 plt.xlabel("Dead&Imaginary")
@@ -253,7 +253,7 @@ plt.scatter(X_train['Dead&Imaginary'], y_train, color = 'purple')
 plt.show()
 
 
-# In[76]:
+# In[101]:
 
 
 plt.hist(X_train['Male'], bins=10, color='red', edgecolor='black')  
@@ -262,7 +262,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[77]:
+# In[102]:
 
 
 plt.hist(X_train['Animal'], bins=10, color='blue', edgecolor='black')  
@@ -271,7 +271,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[78]:
+# In[103]:
 
 
 plt.hist(X_train['Friends'], bins=10, color='green', edgecolor='black') 
@@ -280,7 +280,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[79]:
+# In[104]:
 
 
 plt.hist(X_train['Family'], bins=10, color='yellow', edgecolor='black') 
@@ -289,7 +289,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[80]:
+# In[105]:
 
 
 plt.hist(X_train['Dead&Imaginary'], bins=10, color='purple', edgecolor='black')  
@@ -300,7 +300,7 @@ plt.show()
 
 # Checking for correlations
 
-# In[81]:
+# In[106]:
 
 
 #correlation matrix
@@ -321,7 +321,7 @@ plt.show()
 
 # Exporting the processed training data frame to a csv file
 
-# In[82]:
+# In[107]:
 
 
 training_df = X_train.copy()
@@ -333,7 +333,7 @@ training_df.to_csv("training_data.csv")
 
 # Reflect changes on training set to test set
 
-# In[83]:
+# In[108]:
 
 
 #Drop columns from test set to match the training set
@@ -354,4 +354,9 @@ X_test.drop('A/CIndex', axis=1, inplace=True)
 X_test.drop('F/CIndex', axis=1, inplace=True)
 X_test.drop('S/CIndex', axis=1, inplace=True)
 
+
+# In[ ]:
+
+
+get_ipython().system('jupyter nbconvert --to script data_preprocessing.ipynb')
 
