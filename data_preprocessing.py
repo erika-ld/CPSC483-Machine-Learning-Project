@@ -6,7 +6,7 @@
 # Dulce Funez Chinchilla, Drashti Mehta, Erika Dickson
 # 
 
-# In[86]:
+# In[50]:
 
 
 #Import statements
@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from scipy import stats
 
 
-# In[87]:
+# In[51]:
 
 
 dreams = pd.read_csv('dreams_dataset.csv')
@@ -30,7 +30,7 @@ print(dreams.shape)
 dreams.head(10)
 
 
-# In[88]:
+# In[52]:
 
 
 #Add an additional column 'gender' for the gender of the dreamer, place it in index 2, intialize with 'n/a'
@@ -38,7 +38,7 @@ dreams.head(10)
 dreams.insert(2, 'gender', 'n/a')
 
 
-# In[89]:
+# In[53]:
 
 
 #Update the gender column to have dreamer gender as numeric binary
@@ -123,7 +123,7 @@ for key, val in dreamer_gender.items():
 dreams.head(5)
 
 
-# In[90]:
+# In[54]:
 
 
 #Split train & test set with 80:20 ratio 
@@ -141,14 +141,14 @@ y_test_raw = y_test.copy()
 
 # Proceed to data preprocessing on train set 
 
-# In[91]:
+# In[55]:
 
 
 #Handle missing values: find how many columns have missing values, and how many many missing values
 X_train.isna().sum()
 
 
-# In[92]:
+# In[ ]:
 
 
 #Dimensionality reduction
@@ -171,17 +171,16 @@ X_train.drop('emotions_code', axis=1, inplace=True)
 X_train.drop('aggression_code', axis=1, inplace=True)
 X_train.drop('friendliness_code', axis=1, inplace=True)
 X_train.drop('sexuality_code', axis=1, inplace=True)
-X_train.head(10)
 
 
-# In[93]:
+# In[57]:
 
 
 #Checking none of the remaining columns have missing values
 X_train.isna().sum()
 
 
-# In[94]:
+# In[58]:
 
 
 #Checking for any duplicate rows
@@ -190,7 +189,7 @@ len(X_train) - len(X_train.drop_duplicates())
 
 # Discover & visualize the cleaned data to gain insights
 
-# In[95]:
+# In[59]:
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
@@ -208,7 +207,7 @@ print('Column "NegativeEmotions" minimum value:', y_train.min())
 print('Column "NegativeEmotions" maximum value:', y_train.max())
 
 
-# In[96]:
+# In[60]:
 
 
 plt.xlabel("Male")
@@ -217,7 +216,7 @@ plt.scatter(X_train['Male'], y_train, color = 'red')
 plt.show()
 
 
-# In[97]:
+# In[61]:
 
 
 plt.xlabel("Animal")
@@ -226,7 +225,7 @@ plt.scatter(X_train['Animal'], y_train, color = 'blue')
 plt.show()
 
 
-# In[98]:
+# In[62]:
 
 
 plt.xlabel("Friends")
@@ -235,7 +234,7 @@ plt.scatter(X_train['Friends'], y_train, color = 'green')
 plt.show()
 
 
-# In[99]:
+# In[63]:
 
 
 plt.xlabel("Family")
@@ -244,7 +243,7 @@ plt.scatter(X_train['Family'], y_train, color = 'yellow')
 plt.show()
 
 
-# In[100]:
+# In[64]:
 
 
 plt.xlabel("Dead&Imaginary")
@@ -253,7 +252,7 @@ plt.scatter(X_train['Dead&Imaginary'], y_train, color = 'purple')
 plt.show()
 
 
-# In[101]:
+# In[65]:
 
 
 plt.hist(X_train['Male'], bins=10, color='red', edgecolor='black')  
@@ -262,7 +261,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[102]:
+# In[66]:
 
 
 plt.hist(X_train['Animal'], bins=10, color='blue', edgecolor='black')  
@@ -271,7 +270,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[103]:
+# In[67]:
 
 
 plt.hist(X_train['Friends'], bins=10, color='green', edgecolor='black') 
@@ -280,7 +279,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[104]:
+# In[68]:
 
 
 plt.hist(X_train['Family'], bins=10, color='yellow', edgecolor='black') 
@@ -289,7 +288,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[105]:
+# In[69]:
 
 
 plt.hist(X_train['Dead&Imaginary'], bins=10, color='purple', edgecolor='black')  
@@ -300,7 +299,7 @@ plt.show()
 
 # Checking for correlations
 
-# In[106]:
+# In[70]:
 
 
 #correlation matrix
@@ -321,7 +320,7 @@ plt.show()
 
 # Exporting the processed training data frame to a csv file
 
-# In[107]:
+# In[71]:
 
 
 training_df = X_train.copy()
@@ -333,7 +332,7 @@ training_df.to_csv("training_data.csv")
 
 # Reflect changes on training set to test set
 
-# In[108]:
+# In[72]:
 
 
 #Drop columns from test set to match the training set
@@ -355,7 +354,7 @@ X_test.drop('F/CIndex', axis=1, inplace=True)
 X_test.drop('S/CIndex', axis=1, inplace=True)
 
 
-# In[109]:
+# In[73]:
 
 
 get_ipython().system('jupyter nbconvert --to script data_preprocessing.ipynb')
