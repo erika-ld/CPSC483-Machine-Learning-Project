@@ -354,7 +354,7 @@ X_test.drop('F/CIndex', axis=1, inplace=True)
 X_test.drop('S/CIndex', axis=1, inplace=True)
 
 
-# In[ ]:
+# In[24]:
 
 
 get_ipython().system('jupyter nbconvert --to script data_preprocessing.ipynb')
