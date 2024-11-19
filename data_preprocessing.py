@@ -157,13 +157,8 @@ X_train.drop(' dream_id', axis=1, inplace=True)
 X_train.drop('dream_language', axis=1, inplace=True)
 X_train.drop('dream_date', axis=1, inplace=True)
 X_train.drop('dreamer', axis=1, inplace=True)
-X_train.drop('gender', axis=1, inplace=True)
 X_train.drop('description', axis=1, inplace=True)
 X_train.drop('text_dream', axis=1, inplace=True)
-X_train.drop('Aggression/Friendliness', axis=1, inplace=True)
-X_train.drop('A/CIndex', axis=1, inplace=True)
-X_train.drop('F/CIndex', axis=1, inplace=True)
-X_train.drop('S/CIndex', axis=1, inplace=True)
 
 #Remove unnecessary columns with missing values 
 X_train.drop('characters_code', axis=1, inplace=True)
@@ -193,6 +188,8 @@ len(X_train) - len(X_train.drop_duplicates())
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
+print('Column "F/CIndex" minimum value:', X_train['F/CIndex'].min())
+print('Column "F/CIndex" maximum value:', X_train['F/CIndex'].max())
 print('Column "Male" minimum value:', X_train['Male'].min())
 print('Column "Male" maximum value:', X_train['Male'].max())
 print('Column "Animal" minimum value:', X_train['Animal'].min())
@@ -354,7 +351,7 @@ X_test.drop('F/CIndex', axis=1, inplace=True)
 X_test.drop('S/CIndex', axis=1, inplace=True)
 
 
-# In[24]:
+# In[ ]:
 
 
 get_ipython().system('jupyter nbconvert --to script data_preprocessing.ipynb')
