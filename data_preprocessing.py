@@ -20,6 +20,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split, cross_val_score
 from scipy import stats
+from sklearn import preprocessing
 
 
 # In[2]:
@@ -33,15 +34,15 @@ dreams.head(10)
 # In[3]:
 
 
-#Add an additional column 'gender' for the gender of the dreamer, place it in index 2, intialize with 'n/a'
-#Column 'gender' will be used for data analysis and later conclusion drawing
-dreams.insert(2, 'gender', 'n/a')
+#Add an additional column 'Gender' for the Gender of the dreamer, place it in index 2, intialize with 'n/a'
+#Column 'Gender' will be used for data analysis and later conclusion drawing
+dreams.insert(2, 'Gender', 'n/a')
 
 
 # In[4]:
 
 
-#Update the gender column to have dreamer gender as numeric binary
+#Update the Gender column to have dreamer Gender as numeric binary
 #Female: 1
 #Male: 0
 dreamer_gender = {
@@ -118,9 +119,13 @@ dreamer_gender = {
 }
 
 for key, val in dreamer_gender.items():
-    dreams.loc[dreams['dreamer'] == key, 'gender'] = val
+    dreams.loc[dreams['dreamer'] == key, 'Gender'] = val
 
 dreams.head(5)
+
+dreams['Gender'] = dreams['Gender'].astype(float)
+dreams['Gender'].dtype
+
 
 
 # In[5]:
@@ -188,8 +193,14 @@ len(X_train) - len(X_train.drop_duplicates())
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
+print('Column "Aggression/Friendliness" minimum value:', X_train['Aggression/Friendliness'].min())
+print('Column "Aggression/Friendliness" maximum value:', X_train['Aggression/Friendliness'].max())
+print('Column "A/CIndex" minimum value:', X_train['A/CIndex'].min())
+print('Column "A/CIndex" maximum value:', X_train['A/CIndex'].max())
 print('Column "F/CIndex" minimum value:', X_train['F/CIndex'].min())
 print('Column "F/CIndex" maximum value:', X_train['F/CIndex'].max())
+print('Column "S/CIndex" minimum value:', X_train['S/CIndex'].min())
+print('Column "S/CIndex" maximum value:', X_train['S/CIndex'].max())
 print('Column "Male" minimum value:', X_train['Male'].min())
 print('Column "Male" maximum value:', X_train['Male'].max())
 print('Column "Animal" minimum value:', X_train['Animal'].min())
@@ -207,13 +218,33 @@ print('Column "NegativeEmotions" maximum value:', y_train.max())
 # In[11]:
 
 
+#Need to normalize: A/CIndex, F/CIndex, S/CIndex
+scaler = preprocessing.MinMaxScaler()
+X_train['A/CIndex'] = scaler.fit_transform(X_train[['A/CIndex']])
+X_train['F/CIndex'] = scaler.fit_transform(X_train[['F/CIndex']])
+X_train['S/CIndex'] = scaler.fit_transform(X_train[['S/CIndex']])
+
+#Check that the data has been scaled between 0-1
+print('Column "A/CIndex" minimum value:', X_train['A/CIndex'].min())
+print('Column "A/CIndex" maximum value:', X_train['A/CIndex'].max())
+print('Column "F/CIndex" minimum value:', X_train['F/CIndex'].min())
+print('Column "F/CIndex" maximum value:', X_train['F/CIndex'].max())
+print('Column "S/CIndex" minimum value:', X_train['S/CIndex'].min())
+print('Column "S/CIndex" maximum value:', X_train['S/CIndex'].max())
+
+X_train.head(10)
+
+
+# In[12]:
+
+
 plt.xlabel("Male")
 plt.ylabel("Negative Emotions")
 plt.scatter(X_train['Male'], y_train, color = 'red')
 plt.show()
 
 
-# In[12]:
+# In[13]:
 
 
 plt.xlabel("Animal")
@@ -222,7 +253,7 @@ plt.scatter(X_train['Animal'], y_train, color = 'blue')
 plt.show()
 
 
-# In[13]:
+# In[14]:
 
 
 plt.xlabel("Friends")
@@ -231,7 +262,7 @@ plt.scatter(X_train['Friends'], y_train, color = 'green')
 plt.show()
 
 
-# In[14]:
+# In[15]:
 
 
 plt.xlabel("Family")
@@ -240,7 +271,7 @@ plt.scatter(X_train['Family'], y_train, color = 'yellow')
 plt.show()
 
 
-# In[15]:
+# In[16]:
 
 
 plt.xlabel("Dead&Imaginary")
@@ -249,7 +280,7 @@ plt.scatter(X_train['Dead&Imaginary'], y_train, color = 'purple')
 plt.show()
 
 
-# In[16]:
+# In[17]:
 
 
 plt.hist(X_train['Male'], bins=10, color='red', edgecolor='black')  
@@ -258,7 +289,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[17]:
+# In[18]:
 
 
 plt.hist(X_train['Animal'], bins=10, color='blue', edgecolor='black')  
@@ -267,7 +298,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[18]:
+# In[19]:
 
 
 plt.hist(X_train['Friends'], bins=10, color='green', edgecolor='black') 
@@ -276,7 +307,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[19]:
+# In[20]:
 
 
 plt.hist(X_train['Family'], bins=10, color='yellow', edgecolor='black') 
@@ -285,7 +316,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[20]:
+# In[21]:
 
 
 plt.hist(X_train['Dead&Imaginary'], bins=10, color='purple', edgecolor='black')  
@@ -296,11 +327,16 @@ plt.show()
 
 # Checking for correlations
 
-# In[21]:
+# In[22]:
 
 
-#correlation matrix
-selected_columns = dreams[['Male', 'Animal', 'Friends', 'Family', 'Dead&Imaginary', 'NegativeEmotions']]
+# Correlation matrix
+selected_columns = X_train[['Gender', 'Male', 'Animal', 'Friends', 'Family', 'Dead&Imaginary', 
+                            'Aggression/Friendliness', 'A/CIndex', 'F/CIndex', 'S/CIndex']]
+
+selected_columns['NegativeEmotions'] = y_train
+selected_columns.head(10)
+
 
 # Calculate the correlation matrix
 correlation_matrix = selected_columns.corr()
@@ -315,9 +351,10 @@ plt.title('Correlation Matrix')
 plt.show()
 
 
+
 # Exporting the processed training data frame to a csv file
 
-# In[22]:
+# In[23]:
 
 
 training_df = X_train.copy()
@@ -329,13 +366,12 @@ training_df.to_csv("training_data.csv")
 
 # Reflect changes on training set to test set
 
-# In[23]:
+# In[24]:
 
 
 #Drop columns from test set to match the training set
 X_test.drop(' dream_id', axis=1, inplace=True)
 X_test.drop('dreamer', axis=1, inplace=True)
-X_test.drop('gender', axis=1, inplace=True)
 X_test.drop('description', axis=1, inplace=True)
 X_test.drop('text_dream', axis=1, inplace=True)
 X_test.drop('dream_language', axis=1, inplace=True)
@@ -345,13 +381,25 @@ X_test.drop('emotions_code', axis=1, inplace=True)
 X_test.drop('aggression_code', axis=1, inplace=True)
 X_test.drop('friendliness_code', axis=1, inplace=True)
 X_test.drop('sexuality_code', axis=1, inplace=True)
-X_test.drop('Aggression/Friendliness', axis=1, inplace=True)
-X_test.drop('A/CIndex', axis=1, inplace=True)
-X_test.drop('F/CIndex', axis=1, inplace=True)
-X_test.drop('S/CIndex', axis=1, inplace=True)
+
+#Scale columns
+scaler = preprocessing.MinMaxScaler()
+X_test['A/CIndex'] = scaler.fit_transform(X_test[['A/CIndex']])
+X_test['F/CIndex'] = scaler.fit_transform(X_test[['F/CIndex']])
+X_test['S/CIndex'] = scaler.fit_transform(X_test[['S/CIndex']])
 
 
-# In[ ]:
+# In[25]:
+
+
+#Make a copy of the files for later processing in subsequent files
+X_train_copy = X_train.copy()
+y_train_copy = y_train.copy()
+X_test_copy = X_test.copy()
+y_test_copy = y_test.copy()
+
+
+# In[26]:
 
 
 get_ipython().system('jupyter nbconvert --to script data_preprocessing.ipynb')
