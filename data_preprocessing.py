@@ -180,11 +180,14 @@ X_train.drop('sexuality_code', axis=1, inplace=True)
 X_train.isna().sum()
 
 
-# In[9]:
+# In[28]:
 
 
 #Checking for any duplicate rows
 len(X_train) - len(X_train.drop_duplicates())
+
+duplicates = X_train[X_train.duplicated()]
+print(duplicates)
 
 
 # Discover & visualize the cleaned data to gain insights
