@@ -6,7 +6,7 @@
 # Dulce Funez Chinchilla, Drashti Mehta, Erika Dickson
 # 
 
-# In[1]:
+# In[27]:
 
 
 #Import statements
@@ -23,7 +23,7 @@ from scipy import stats
 from sklearn import preprocessing
 
 
-# In[2]:
+# In[28]:
 
 
 dreams = pd.read_csv('dreams_dataset.csv')
@@ -31,7 +31,7 @@ print(dreams.shape)
 dreams.head(10)
 
 
-# In[3]:
+# In[29]:
 
 
 #Add an additional column 'Gender' for the Gender of the dreamer, place it in index 2, intialize with 'n/a'
@@ -39,7 +39,7 @@ dreams.head(10)
 dreams.insert(2, 'Gender', 'n/a')
 
 
-# In[4]:
+# In[30]:
 
 
 #Update the Gender column to have dreamer Gender as numeric binary
@@ -128,7 +128,7 @@ dreams['Gender'].dtype
 
 
 
-# In[5]:
+# In[31]:
 
 
 #Split train & test set with 80:20 ratio 
@@ -146,14 +146,14 @@ y_test_raw = y_test.copy()
 
 # Proceed to data preprocessing on train set 
 
-# In[6]:
+# In[32]:
 
 
 #Handle missing values: find how many columns have missing values, and how many many missing values
 X_train.isna().sum()
 
 
-# In[7]:
+# In[33]:
 
 
 #Dimensionality reduction
@@ -173,14 +173,14 @@ X_train.drop('friendliness_code', axis=1, inplace=True)
 X_train.drop('sexuality_code', axis=1, inplace=True)
 
 
-# In[8]:
+# In[34]:
 
 
 #Checking none of the remaining columns have missing values
 X_train.isna().sum()
 
 
-# In[9]:
+# In[35]:
 
 
 #X_train.info
@@ -192,7 +192,7 @@ print(duplicates)
 
 # Discover & visualize the cleaned data to gain insights
 
-# In[10]:
+# In[36]:
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
@@ -218,7 +218,7 @@ print('Column "NegativeEmotions" minimum value:', y_train.min())
 print('Column "NegativeEmotions" maximum value:', y_train.max())
 
 
-# In[11]:
+# In[37]:
 
 
 #Need to normalize: A/CIndex, F/CIndex, S/CIndex
@@ -238,7 +238,7 @@ print('Column "S/CIndex" maximum value:', X_train['S/CIndex'].max())
 X_train.head(10)
 
 
-# In[12]:
+# In[38]:
 
 
 plt.xlabel("Male")
@@ -247,7 +247,7 @@ plt.scatter(X_train['Male'], y_train, color = 'red')
 plt.show()
 
 
-# In[13]:
+# In[39]:
 
 
 plt.xlabel("Animal")
@@ -256,7 +256,7 @@ plt.scatter(X_train['Animal'], y_train, color = 'blue')
 plt.show()
 
 
-# In[14]:
+# In[40]:
 
 
 plt.xlabel("Friends")
@@ -265,7 +265,7 @@ plt.scatter(X_train['Friends'], y_train, color = 'green')
 plt.show()
 
 
-# In[15]:
+# In[41]:
 
 
 plt.xlabel("Family")
@@ -274,7 +274,7 @@ plt.scatter(X_train['Family'], y_train, color = 'yellow')
 plt.show()
 
 
-# In[16]:
+# In[42]:
 
 
 plt.xlabel("Dead&Imaginary")
@@ -283,7 +283,7 @@ plt.scatter(X_train['Dead&Imaginary'], y_train, color = 'purple')
 plt.show()
 
 
-# In[17]:
+# In[43]:
 
 
 plt.hist(X_train['Male'], bins=10, color='red', edgecolor='black')  
@@ -292,7 +292,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[18]:
+# In[44]:
 
 
 plt.hist(X_train['Animal'], bins=10, color='blue', edgecolor='black')  
@@ -301,7 +301,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[19]:
+# In[45]:
 
 
 plt.hist(X_train['Friends'], bins=10, color='green', edgecolor='black') 
@@ -310,7 +310,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[20]:
+# In[46]:
 
 
 plt.hist(X_train['Family'], bins=10, color='yellow', edgecolor='black') 
@@ -319,7 +319,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[21]:
+# In[47]:
 
 
 plt.hist(X_train['Dead&Imaginary'], bins=10, color='purple', edgecolor='black')  
@@ -330,7 +330,7 @@ plt.show()
 
 # Checking for correlations
 
-# In[22]:
+# In[48]:
 
 
 # Correlation matrix
@@ -357,7 +357,7 @@ plt.show()
 
 # Exporting the processed training data frame to a csv file
 
-# In[23]:
+# In[49]:
 
 
 training_df = X_train.copy()
@@ -369,7 +369,7 @@ training_df.to_csv("training_data.csv")
 
 # Reflect changes on training set to test set
 
-# In[24]:
+# In[50]:
 
 
 #Drop columns from test set to match the training set
@@ -392,7 +392,7 @@ X_test['F/CIndex'] = scaler.fit_transform(X_test[['F/CIndex']])
 X_test['S/CIndex'] = scaler.fit_transform(X_test[['S/CIndex']])
 
 
-# In[25]:
+# In[51]:
 
 
 #Make a copy of the files for later processing in subsequent files
@@ -402,7 +402,7 @@ X_test_copy = X_test.copy()
 y_test_copy = y_test.copy()
 
 
-# In[26]:
+# In[52]:
 
 
 get_ipython().system('jupyter nbconvert --to script data_preprocessing.ipynb')
