@@ -6,7 +6,7 @@
 # Dulce Funez Chinchilla, Drashti Mehta, Erika Dickson
 # 
 
-# In[93]:
+# In[128]:
 
 
 #Import statements
@@ -23,7 +23,7 @@ from scipy import stats
 from sklearn import preprocessing
 
 
-# In[94]:
+# In[129]:
 
 
 #Read the csv into a pandas dataframe and examine the raw dataset
@@ -32,7 +32,7 @@ print(dreams.shape)
 dreams.head(10)
 
 
-# In[95]:
+# In[130]:
 
 
 #Add an additional column 'Gender' for the Gender of the dreamer, place it in index 2, intialize with 'n/a'
@@ -40,7 +40,7 @@ dreams.head(10)
 dreams.insert(2, 'Gender', 'n/a')
 
 
-# In[96]:
+# In[131]:
 
 
 #Update the Gender column to have dreamer Gender as numeric binary
@@ -130,7 +130,7 @@ dreams['Gender'].dtype
 
 
 
-# In[97]:
+# In[132]:
 
 
 #Split train & test set with 80:20 ratio 
@@ -148,14 +148,14 @@ y_test_raw = y_test.copy()
 
 # Proceed to data preprocessing on train set 
 
-# In[98]:
+# In[133]:
 
 
 #Handle missing values: find how many columns have missing values, and how many many missing values
 X_train.isna().sum()
 
 
-# In[99]:
+# In[134]:
 
 
 #Dimensionality reduction
@@ -175,7 +175,7 @@ X_train.drop('friendliness_code', axis=1, inplace=True)
 X_train.drop('sexuality_code', axis=1, inplace=True)
 
 
-# In[100]:
+# In[135]:
 
 
 #Checking none of the remaining columns have missing values
@@ -184,7 +184,7 @@ X_train.isna().sum()
 
 # Discover & visualize the cleaned data to gain insights
 
-# In[101]:
+# In[136]:
 
 
 #Discovering & ensuring that all the key feature columns are in the same range of values
@@ -210,7 +210,7 @@ print('Column "NegativeEmotions" minimum value:', y_train.min())
 print('Column "NegativeEmotions" maximum value:', y_train.max())
 
 
-# In[102]:
+# In[137]:
 
 
 #Need to scale within a range of 0-1: A/CIndex, F/CIndex, S/CIndex
@@ -232,7 +232,7 @@ X_train.head(10)
 
 # Visualizing the data with scatterplots and histograms to determine relationships between the variables & target feature, and frequencies of the attributes
 
-# In[103]:
+# In[138]:
 
 
 plt.xlabel("Gender")
@@ -241,7 +241,7 @@ plt.scatter(X_train['Gender'], y_train, color = 'orange')
 plt.show()
 
 
-# In[104]:
+# In[139]:
 
 
 plt.xlabel("Aggression/Friendliness")
@@ -250,7 +250,7 @@ plt.scatter(X_train['Aggression/Friendliness'], y_train, color = 'gray')
 plt.show()
 
 
-# In[105]:
+# In[140]:
 
 
 plt.xlabel("A/CIndex")
@@ -259,7 +259,7 @@ plt.scatter(X_train['A/CIndex'], y_train, color = 'indigo')
 plt.show()
 
 
-# In[106]:
+# In[141]:
 
 
 plt.xlabel("F/CIndex")
@@ -268,7 +268,7 @@ plt.scatter(X_train['F/CIndex'], y_train, color = 'seagreen')
 plt.show()
 
 
-# In[107]:
+# In[142]:
 
 
 plt.xlabel("S/CIndex")
@@ -277,7 +277,7 @@ plt.scatter(X_train['S/CIndex'], y_train, color = 'cornflowerblue')
 plt.show()
 
 
-# In[108]:
+# In[143]:
 
 
 plt.xlabel("Male")
@@ -286,7 +286,7 @@ plt.scatter(X_train['Male'], y_train, color = 'red')
 plt.show()
 
 
-# In[109]:
+# In[144]:
 
 
 plt.xlabel("Animal")
@@ -295,7 +295,7 @@ plt.scatter(X_train['Animal'], y_train, color = 'blue')
 plt.show()
 
 
-# In[110]:
+# In[145]:
 
 
 plt.xlabel("Friends")
@@ -304,7 +304,7 @@ plt.scatter(X_train['Friends'], y_train, color = 'green')
 plt.show()
 
 
-# In[111]:
+# In[146]:
 
 
 plt.xlabel("Family")
@@ -313,7 +313,7 @@ plt.scatter(X_train['Family'], y_train, color = 'yellow')
 plt.show()
 
 
-# In[112]:
+# In[147]:
 
 
 plt.xlabel("Dead&Imaginary")
@@ -322,7 +322,7 @@ plt.scatter(X_train['Dead&Imaginary'], y_train, color = 'purple')
 plt.show()
 
 
-# In[113]:
+# In[148]:
 
 
 plt.hist(X_train['Gender'], bins=10, color='orange', edgecolor='black')  
@@ -331,7 +331,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[114]:
+# In[149]:
 
 
 plt.hist(X_train['Aggression/Friendliness'], bins=10, color='gray', edgecolor='black')  
@@ -340,7 +340,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[115]:
+# In[150]:
 
 
 plt.hist(X_train['A/CIndex'], bins=10, color='indigo', edgecolor='black')  
@@ -349,7 +349,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[116]:
+# In[151]:
 
 
 plt.hist(X_train['F/CIndex'], bins=10, color='seagreen', edgecolor='black')  
@@ -358,7 +358,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[117]:
+# In[152]:
 
 
 plt.hist(X_train['S/CIndex'], bins=10, color='cornflowerblue', edgecolor='black')  
@@ -367,7 +367,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[118]:
+# In[153]:
 
 
 plt.hist(X_train['Male'], bins=10, color='red', edgecolor='black')  
@@ -376,7 +376,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[119]:
+# In[154]:
 
 
 plt.hist(X_train['Animal'], bins=10, color='blue', edgecolor='black')  
@@ -385,7 +385,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[120]:
+# In[155]:
 
 
 plt.hist(X_train['Friends'], bins=10, color='green', edgecolor='black') 
@@ -394,7 +394,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[121]:
+# In[156]:
 
 
 plt.hist(X_train['Family'], bins=10, color='yellow', edgecolor='black') 
@@ -403,7 +403,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[122]:
+# In[157]:
 
 
 plt.hist(X_train['Dead&Imaginary'], bins=10, color='purple', edgecolor='black')  
@@ -415,7 +415,7 @@ plt.show()
 # Checking for existing correlations between the attributes and target feature
 # Determining the degree to which they are correlated and which features have the highest correlation to each other & target feature
 
-# In[123]:
+# In[158]:
 
 
 # Correlation matrix
@@ -442,7 +442,7 @@ plt.show()
 
 # Exporting the processed training data frame to a csv file
 
-# In[124]:
+# In[159]:
 
 
 training_df = X_train.copy()
@@ -454,7 +454,7 @@ training_df.to_csv("training_data.csv")
 
 # Reflect changes on training set to test set
 
-# In[125]:
+# In[160]:
 
 
 #Drop columns from test set to match the training set
@@ -477,7 +477,7 @@ X_test['F/CIndex'] = scaler.fit_transform(X_test[['F/CIndex']])
 X_test['S/CIndex'] = scaler.fit_transform(X_test[['S/CIndex']])
 
 
-# In[126]:
+# In[161]:
 
 
 #Make a copy of the files for later processing in subsequent files
